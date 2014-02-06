@@ -14,15 +14,7 @@ dy=(yEnd-yStart)/N
 
 # plotting the mesh
 size = 10
-"""
-plt.figure(figsize=(size,(yEnd-yStart)/(xEnd-xStart)*size))
-plt.xlabel('x',fontsize=16)
-plt.ylabel('y',fontsize=16)
-plt.xlim(xStart,xEnd)
-plt.ylim(yStart,yEnd)
-plt.scatter(X,Y,s=10,c='#CD2305',marker='o',linewidth=0.1)
-plt.show()
-"""
+
 strengthSource = 5.0                   # source strength
 strengthSink=-5.0
 xSource, ySource = -0.5,0.0            # location of the source
@@ -92,11 +84,7 @@ plt.ylabel('y',fontsize=16)
 plt.xlim(xStart,xEnd)
 plt.ylim(yStart,yEnd)
 contf = plt.contour(X,Y,Cp,levels=np.linspace(-2.0,1.0,100),extend='both')
-"""cbar = plt.colorbar(contf)
-cbar.set_label(r'$C_p$',fontsize=16)
-cbar.set_ticks([-2.0,-1.0,0.0,1.0]
-plt.scatter(xSource,ySource,c='#CD2305',s=80,marker='o')
-plt.scatter(xSink,ySink,c='#CD2305',s=80,marker='o')"""
+
 plt.scatter([xSource,xSink],[ySource,ySink],c='#CD2305',s=80,marker='o')
 plt.contour(X,Y,phi,levels=[0.0],colors='#CD2305',linewidths=2,linestyles='solid')
 plt.show()
