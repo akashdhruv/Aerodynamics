@@ -31,6 +31,12 @@ def flowdoublet(mu,xs,ys,X,Y):
     psi = -mu/(2*pi)*(Y-yd)/((X-xd)**2+(Y-yd)**2)
     return u,v,psi
 
+def flowvortex(ga,xv,yv,X,Y):
+    u = +ga/(2*pi)*(Y-yv)/((X-xv)**2+(Y-yv)**2)
+    v = -ga/(2*pi)*(X-xv)/((X-xv)**2+(Y-yv)**2)
+    psi = ga/(4*pi)*np.log((X-xv)**2+(Y-yv)**2)
+    return u,v,psi
+
 """ ssource=5.0
 
 xsource,ysource=-1.0,0.0
@@ -47,11 +53,14 @@ psi = psiFreestream + psisource +psisink """
 
 xd,yd=0.0,0.0
 mu=5
-udoublet,vdoublet,psi=flowdoublet(mu,xd,yd,X,Y)
+ga=5
+xv,yv,=0.0,0.0
+udoublet,vdoublet,psidoublet=flowdoublet(mu,xd,yd,X,Y)
+uvortex,vvortex,psivortex=flowvortex(ga,xv,yv,X,Y)
 
-udoublet=udoublet+uFreestream
-vdoublet=vdoublet+vFreestream
-psi=psi+psiFreestream
+u=udoublet+uFreestream+uvortex
+v=vdoublet+vFreestream+vvortex
+psi=psidoublet+psiFreestream+psivortex
 
 # plotting
 
@@ -62,7 +71,7 @@ plt.xlabel('x',fontsize=16)
 plt.ylabel('y',fontsize=16)
 plt.xlim(xStart,xEnd)
 plt.ylim(yStart,yEnd)
-plt.streamplot(X,Y,udoublet,vdoublet,density=2.0,linewidth=1,arrowsize=1,arrowstyle='->')
+plt.streamplot(X,Y,u,v,density=2.0,linewidth=1,arrowsize=1,arrowstyle='->')
 plt.scatter(xd,yd,c='#CD2305',s=80,marker='o')
 
 """ # computing the stagnation point
@@ -81,7 +90,7 @@ plt.contour(X,Y,psi,linewidths=2,linestyles='--')
 
 plt.show()
 
-Cp = 1.0-(udoublet**2+vdoublet**2)/Uinf**2
+Cp = 1.0-(u**2+v**2)/Uinf**2
 
 plt.figure(figsize=(size,(yEnd-yStart)/(xEnd-xStart)*size))
 plt.grid(True)
