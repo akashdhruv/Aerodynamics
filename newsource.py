@@ -75,7 +75,6 @@ plt.streamplot(X,Y,u,v,density=2.0,linewidth=1,arrowsize=2,arrowstyle='->')
 plt.scatter(xSource,ySource,c='#CD2305',s=80,marker='o')
 plt.scatter(xSink,ySink,c='#CD2305',s=80,marker='o')
 plt.show()
-
 Cp = 1.0-(u**2+v**2)/U_inf**2
 
 plt.figure()
