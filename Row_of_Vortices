@@ -1,0 +1,27 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from math import *
+
+N = 200 
+xStart,xEnd = -4.0,4.0
+yStart,yEnd = -2.0,2.0 
+x = np.linspace(xStart,xEnd,N)
+y = np.linspace(yStart,yEnd,N)    
+X,Y = np.meshgrid(x,y)          
+
+Uinf = 1.0
+alphaInDegrees = 0.0
+alpha = alphaInDegrees*pi/180
+
+
+uFreestream = Uinf*cos(alpha)
+vFreestream = Uinf*sin(alpha)
+
+
+psiFreestream = + Uinf*cos(alpha)*Y - Uinf*sin(alpha)*X
+
+def flowvortex(ga,xv,yv,X,Y):
+    u = +ga/(2*pi)*(Y-yv)/((X-xv)**2+(Y-yv)**2)
+    v = -ga/(2*pi)*(X-xv)/((X-xv)**2+(Y-yv)**2)
+    psi = ga/(4*pi)*np.log((X-xv)**2+(Y-yv)**2)
+    return u,v,psi
